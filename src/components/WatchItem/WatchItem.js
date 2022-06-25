@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
+import './WatchItem.css';
 
 const contentStyles = {
   color: 'white',
-  // backgroundColor: 'blue'
 }
 
 function toggleBackground(movie){
@@ -15,10 +15,14 @@ function toggleBackground(movie){
 function WatchItem({movie, onDelete, onToggle}) {
   return (
     <div
+      className='watch-item'
       style={toggleBackground(movie)}
-     onClick={() => onToggle(movie)}
+      onClick={() => onToggle(movie)}
      >
-      {movie.title} produced by {movie.director}
+      <p className='content'>{movie.title} produced by {movie.director}</p>
+      <span 
+        className='delete-btn'
+            >X</span>
     </div>
   )
 }
