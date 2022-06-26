@@ -13,6 +13,12 @@ function toggleBackground(movie){
 }
 
 function WatchItem({movie, onDelete, onToggle}) {
+
+  const onMovieDelete = (e) => { 
+    e.stopPropagation();
+    onDelete(movie.id)
+   }
+
   return (
     <div
       className='watch-item'
@@ -22,6 +28,7 @@ function WatchItem({movie, onDelete, onToggle}) {
       <p className='content'>{movie.title} produced by {movie.director}</p>
       <span 
         className='delete-btn'
+        onClick={onMovieDelete}
             >X</span>
     </div>
   )
