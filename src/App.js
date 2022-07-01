@@ -1,15 +1,17 @@
 import React from 'react';
-import ContactList from './ContactList';
-import ToWatch from './ToWatch';
 
+import './App.css';
+import WatchForm from './components/WatchForm/WatchForm';
+import WatchList from './components/WatchList/WatchList';
 
-function App() {
+function ToWatch() {
+
   return (
     <div className="container">
-      <ContactList />
-      <ToWatch />
+      <WatchList />
+      <WatchForm />
     </div>
-  )
+  );
 }
 
-export default App
+export default ToWatch;

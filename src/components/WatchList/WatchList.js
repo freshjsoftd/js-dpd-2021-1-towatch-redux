@@ -4,6 +4,7 @@ import WatchItem from '../WatchItem/WatchItem';
 import { delToWatch, toggleToWatch, getMovies } from '../../store/actions/toWatchAction';
 import movieService from '../../api/movie-service'
 
+
 function WatchList({movies, delToWatch, toggleToWatch, getMovies}) {
 
   useEffect(() => {
@@ -28,6 +29,7 @@ function WatchList({movies, delToWatch, toggleToWatch, getMovies}) {
    }
   return (
     <div>
+      {/* {isLoading && <div>Is LOADING</div>} */}
       {!movies ? 'Loading ... ' : movies.map((movie) => {
         return (
           <WatchItem 
@@ -42,11 +44,10 @@ function WatchList({movies, delToWatch, toggleToWatch, getMovies}) {
   )
 }
 
-const mapStateToProps = ({toWatchList: {movies}, contactsList: {contacts}}) => {
+const mapStateToProps = ({movies}) => {
   console.log(movies)
   return {
     movies,
-    contacts
   }
 }
 
