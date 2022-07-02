@@ -1,57 +1,42 @@
-import {
-	TOGGLE_TO_WATCH,
-	ADD_TO_WATCH,
-	DEL_TO_WATCH,
-  GET_MOVIES
-} from '../actions/toWatchAction';
+import ACTION_TYPES from '../actions/actionTypes'
 const initialState = {
-	movies: null
-  // [
-	// 	{
-	// 		title: 'Indiana Johns',
-	// 		director: 'Stiven Spilberg',
-	// 		id: 1,
-	// 		isDone: false,
-	// 	},
-	// 	{
-	// 		title: 'Lord of the rings',
-	// 		director: 'Peter Jackson',
-	// 		isDone: true,
-	// 		id: 1655206999251,
-	// 	},
-	// 	{
-	// 		title: 'Гладиатор',
-	// 		director: 'Ридли Скотт',
-	// 		isDone: false,
-	// 		id: 1655209099993,
-	// 	},
-	// ],
+	movies: [],
+	isFetching: false,
+	error: null,
 };
 
-export default function toWatchReducer(
-	state = initialState,
-	{ type, payload }
+export default function toWatchReducer(state = initialState, { type, payload }
 ) {
 	switch (type) {
-		case ADD_TO_WATCH:
-			return { ...state, movies: [...state.movies, payload] };
-		case DEL_TO_WATCH:
+		// Create
+		case ACTION_TYPES.POST_MOVIE_SUCCESS:
+			return { ...state, movies: [...state.movies, payload], isFetching: false };
+		case ACTION_TYPES.POST_MOVIE_REQUEST: return {...state, isFetching: true};
+		case ACTION_TYPES.POST_MOVIE_ERROR: return { ...state, isFetching: false, error: payload}
+		// Delete
+		case ACTION_TYPES.DELETE_MOVIE_SUCCESS:
 			return {
 				...state,
-				movies: [
-					...state.movies.filter((movie) => movie.id !== payload),
-				],
+				movies: [	...state.movies.filter((movie) => movie.id !== payload)],
+				isFetching: false
 			};
-		case TOGGLE_TO_WATCH:
-			return {
-				...state,
+		case ACTION_TYPES.DELETE_MOVIE_REQUEST: return {...state, isFetching: true};
+		case ACTION_TYPES.DELETE_MOVIE_ERROR: return { ...state, isFetching: false, error: payload}
+		//  Update
+		case ACTION_TYPES.PUT_MOVIE_SUCCESS: return {...state,
 				movies: state.movies.map((movie) =>
-					movie.id === payload
+					movie.id === payload.id
 						? { ...movie, isDone: !movie.isDone }
 						: movie
 				),
+				isFetching: false
 			};
-    case GET_MOVIES: return { ...state, movies: [...payload]}
+		case ACTION_TYPES.PUT_MOVIE_REQUEST: return {...state, isFetching: true};
+		case ACTION_TYPES.PUT_MOVIE_ERROR: return { ...state, isFetching: false, error: payload}	
+		// Get
+    case ACTION_TYPES.GET_MOVIES_SUCCESS: return { ...state, movies: [...payload], isFetching: false}
+		case ACTION_TYPES.GET_MOVIES_REQUEST: return {...state, isFetching: true};
+		case ACTION_TYPES.GET_MOVIES_ERROR: return { ...state, isFetching: false, error: payload}
 		default:
 			return state;
 	}
