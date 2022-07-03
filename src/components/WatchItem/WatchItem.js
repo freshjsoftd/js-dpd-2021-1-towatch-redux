@@ -19,11 +19,15 @@ function WatchItem({movie, onDelete, onToggle}) {
     onDelete(movie.id)
    }
 
+  const onUpdateMovie = () => { 
+     onToggle({...movie, isDone: !movie.isDone})
+    }
+
   return (
     <div
       className='watch-item'
       style={toggleBackground(movie)}
-      onClick={() => onToggle(movie)}
+      onClick={onUpdateMovie}
      >
       <p className='content'>{movie.title} produced by {movie.director}</p>
       <span 

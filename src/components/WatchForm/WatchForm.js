@@ -2,11 +2,9 @@ import React from 'react'
 import './WatchForm.css';
 import {useField} from '../../hooks';
 import { connect } from 'react-redux';
-import {addToWatch} from '../../store/actions/toWatchAction';
-// import movieService from '../../api/movie-service'
+import {addToWatchAction} from '../../store/actions/toWatchAction';
 
-
-function WatchForm({addToWatch}) {
+function WatchForm({addToWatchAction}) {
   const title = useField('');
   const director = useField('');
 
@@ -18,12 +16,7 @@ function WatchForm({addToWatch}) {
       director: director.value,
       isDone: false
     }
-    addToWatch(newToWatch);
-    fetch('http://localhost:5000/watch/', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(newToWatch)
-    })
+    addToWatchAction(newToWatch);
    }
 
   return (
@@ -41,7 +34,7 @@ function WatchForm({addToWatch}) {
 
 
 const mapDispatchToProps = {
-  addToWatch
+  addToWatchAction
 }
 
 export default connect(null, mapDispatchToProps)(WatchForm)
